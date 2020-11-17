@@ -1,0 +1,46 @@
+<h1 calss="current-category" > <%=params[:category] %> Movies</h1>
+<div class="row">
+	
+<% @movie.each do |movie|%>
+
+	<div class="col-md-4">
+		<a href="/movies/<%=movie.id%>">
+		<div class="movie_frame">
+			<div class="index_img">
+				<% if @image[movie.id].nil? %>
+
+					<img class='movie<%=movie.id%>' src="assets/notavailable.jpg" height="200" width= "auto">
+				<% else%>
+					<img class='movie<%=movie.id%>' src="<%= @image[movie.id] %>" height="200" width= "auto">
+				<% end %>
+				
+			</div>
+			
+			<div class="inside">
+	 			<%=movie.title%> <% if movie.year.nil? %> 
+	 			<%else%>
+	 			(<%= movie.year%>)
+	 			<%end%>
+	 			<div class="average" data-score=<%= @average[movie.id] %> ></div>
+
+	 		</div>
+	 		
+
+		</div>
+		</a>
+	</div>
+
+<%end%>
+</div>
+<%= paginate @movie %>
+<script>
+	$('.average').raty({
+		readOnly: true,
+		score: function() {
+			return $(this).attr('data-score');
+		},
+		path: '/assets/'
+	});
+</script>
+
+

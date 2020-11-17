@@ -1,0 +1,39 @@
+
+<div class="row">
+<%= form_tag users_index_path, method: :get, class: "navbar-form navbar-left", role: "search," do%>
+      
+        <%= text_field_tag :query, params[:query] , placeholder: "User search" ,class: "form-control" %>
+        <%= submit_tag "Search", name: nil, class: "btn btn-default"%>
+        
+      
+      <% end%> 
+  </div>
+<div class="row">
+	<% @users.each do |user| %>
+
+	
+	<div class="col-md-4">
+		<a href="/users/<%=user.id%>">
+			<div class="movie_frame">
+				
+
+				<% if user.user_img.file? %>
+
+  					<%= image_tag user.user_img.url(:user_index), :class => "index_img_user"%>
+
+				<% else %>
+  					 <img class='index_img_user' src="/assets/default-user.png" >
+
+				<% end %>
+				
+				
+				<div class="inside">
+	 				<%= user.firstname %> <%= user.surname %>
+
+	 			</div>
+	 		</div>
+	 	</a>
+	</div>
+
+	<% end %>
+</div>
